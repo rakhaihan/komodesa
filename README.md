@@ -163,3 +163,30 @@ seluruh alur nilai koperasi tanpa hambatan. Autentikasi anggota & koperasi via
 Penggunaan AI dalam proyek ini — sebagai alat bantu teknis maupun sebagai fitur
 produk — didokumentasikan secara terbuka di [`docs/AI-DISCLOSURE.md`](docs/AI-DISCLOSURE.md),
 sesuai ketentuan TOR Hackathon.
+
+---
+
+## Tim — Raventhon Institute
+
+<table>
+  <tr>
+    <th align="left">Nama</th>
+    <th align="left">Peran</th>
+    <th align="left">Fokus</th>
+  </tr>
+  <tr>
+    <td>Rakha Raihanurrahman</td>
+    <td> Tech Lead ·  AI Engineer &amp; QA Tester</td>
+    <td>Arsitektur teknis &amp; koordinasi tim, integrasi provider AI (<code>lib/ai.ts</code>), narasi rekomendasi, pengujian &amp; jaminan kualitas end-to-end</td>
+  </tr>
+  <tr>
+    <td>Rafael Ganadi R.</td>
+    <td> Backend Engineer</td>
+    <td>API Routes, skema &amp; migrasi Supabase, logika bisnis (matching, agregasi, logistics pooling)</td>
+  </tr>
+  <tr>
+    <td>Subhan Abdul Fattah A.</td>
+    <td> Frontend Engineer</td>
+    <td>Dashboard &amp; komponen UI, visualisasi data, pengalaman pengguna</td>
+  </tr>
+</table>
