@@ -1,9 +1,12 @@
 'use client'
 
-// SKELETON — Potensi Belum Tergarap (CQ1: potensi ekonomi belum dimanfaatkan optimal)
-// Lihat README.md Fase 2. TODO: fetch GET /api/potential-gaps (wajib) + GET
-// /api/regions (opsional, best-effort) -> StatCard ringkasan + tabel rincian +
-// card karakteristik desa (penduduk/anggaran) kalau ada.
+import { useEffect, useMemo, useState } from 'react'
+import Card from '@/components/ui/Card'
+import StatCard from '@/components/dashboard/StatCard'
+import Skeleton from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
+import { api } from '@/lib/api'
+import { formatIDR, formatNumber } from '@/lib/format'
 
 type Row = {
   commodity_id: string
@@ -23,12 +26,164 @@ type Region = {
 }
 
 export default function PotensiPage() {
-  // TODO: useState<Row[]>, useState<Region[]>, useEffect fetch keduanya
+  const [rows, setRows] = useState<Row[]>([])
+  const [regions, setRegions] = useState<Region[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    api<{ data: Row[] }>('/api/potential-gaps')
+      .then((r) => setRows(r.data))
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false))
+    // Profil desa bersifat pelengkap — kegagalannya tidak memblokir halaman.
+    api<{ data: Region[] }>('/api/regions')
+      .then((r) => setRegions(r.data))
+      .catch(() => {})
+  }, [])
+
+  const totalUnclaimed = rows.reduce((s, r) => s + Number(r.unclaimed_volume), 0)
+  const commodityCount = new Set(rows.map((r) => r.commodity_id)).size
+  const isEmpty = !loading && rows.length === 0
+
+  const topRow = useMemo(
+    () => (rows.length > 0 ? rows[0] : null),
+    [rows]
+  )
 
   return (
     <main>
       <h1 className="text-2xl font-semibold text-brand">Potensi Belum Tergarap</h1>
-      <p className="mt-1 text-sm text-soil-muted">TODO: implementasikan halaman ini.</p>
+      <p className="mt-1 max-w-2xl text-sm text-soil-muted">
+        Pasokan yang sudah tersedia di desa tapi belum terserap buyer mana pun —
+        volume ini siap dijual, peluang bagi koperasi mencari offtaker baru.
+      </p>
+
+      {error && (
+        <p className="mt-4 rounded-lg border border-husk/30 bg-husk/10 p-3 text-sm text-husk">{error}</p>
+      )}
+
+      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {loading ? (
+          [0, 1, 2].map((i) => (
+            <div key={i} className="rounded-xl border border-line bg-card p-4">
+              <Skeleton className="h-3 w-24" />
+              <Skeleton className="mt-2 h-7 w-24" />
+            </div>
+          ))
+        ) : (
+          <>
+            <StatCard
+              label="Total belum tergarap"
+              value={`${formatNumber(totalUnclaimed)} kg`}
+              tone="accent"
+            />
+            <StatCard label="Komoditas" value={String(commodityCount)} />
+            <StatCard
+              label="Peluang terbesar"
+              value={topRow ? topRow.commodity_name : '—'}
+              hint={
+                topRow
+                  ? `${formatNumber(Number(topRow.unclaimed_volume))} kg di ${topRow.region_name}`
+                  : undefined
+              }
+            />
+          </>
+        )}
+      </div>
+
+      <div className="mt-6">
+        {isEmpty ? (
+          <EmptyState
+            title="Semua pasokan sudah terserap"
+            description="Belum ada potensi yang menganggur — setiap volume produksi sudah dialokasikan ke buyer. Tambah data produksi atau tunggu permintaan baru."
+            actionHref="/produksi"
+            actionLabel="Input produksi"
+          />
+        ) : (
+          <Card title="Rincian potensi belum tergarap">
+            {loading ? (
+              <div className="space-y-3">
+                {[0, 1, 2].map((i) => (
+                  <Skeleton key={i} className="h-6 w-full" />
+                ))}
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-line text-left text-soil-muted">
+                      <th className="py-2 pr-3 font-medium">Komoditas</th>
+                      <th className="py-2 pr-3 font-medium">Wilayah</th>
+                      <th className="py-2 pr-3 font-medium">Tersedia</th>
+                      <th className="py-2 pr-3 font-medium">Terserap</th>
+                      <th className="py-2 font-medium">Belum tergarap</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.map((r) => (
+                      <tr
+                        key={`${r.commodity_id}-${r.region_id}`}
+                        className="border-b border-line last:border-0"
+                      >
+                        <td className="py-2 pr-3">{r.commodity_name}</td>
+                        <td className="py-2 pr-3">{r.region_name}</td>
+                        <td className="tabular py-2 pr-3 text-soil-muted">
+                          {formatNumber(Number(r.supplied_volume))} kg
+                        </td>
+                        <td className="tabular py-2 pr-3 text-soil-muted">
+                          {formatNumber(Number(r.matched_volume))} kg
+                        </td>
+                        <td className="tabular py-2 font-medium text-grain-deep">
+                          {formatNumber(Number(r.unclaimed_volume))} kg
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </Card>
+        )}
+      </div>
+
+      {regions.length > 0 && (
+        <div className="mt-6">
+          <Card title="Karakteristik desa terpantau">
+            <p className="mb-4 text-sm text-soil-muted">
+              Konteks demografi & fiskal tiap desa (data riil Kemenkop) — makin
+              besar penduduk & anggaran, makin besar dampak bila potensi di atas
+              berhasil digarap.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-line text-left text-soil-muted">
+                    <th className="py-2 pr-3 font-medium">Wilayah</th>
+                    <th className="py-2 pr-3 font-medium">Penduduk</th>
+                    <th className="py-2 font-medium">Anggaran dana desa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {regions.map((r) => (
+                    <tr key={r.id} className="border-b border-line last:border-0">
+                      <td className="py-2 pr-3">{r.name}</td>
+                      <td className="tabular py-2 pr-3">
+                        {r.population != null ? formatNumber(r.population) : '—'}
+                      </td>
+                      <td className="tabular py-2">
+                        {r.village_budget != null
+                          ? formatIDR(Number(r.village_budget))
+                          : '—'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+      )}
     </main>
   )
 }
