@@ -3,11 +3,24 @@ import { supabase, isSupabaseConfigured, notConfiguredError } from '@/lib/supaba
 
 export const dynamic = 'force-dynamic'
 
-// SKELETON — GET /api/meta -> data master untuk dropdown form (anggota, komoditas, wilayah)
-// TODO: Promise.all query members/commodities/regions, kembalikan ketiganya.
+// GET /api/meta -> data master untuk dropdown form (anggota, komoditas, wilayah)
 export async function GET() {
   if (!isSupabaseConfigured)
     return NextResponse.json({ error: notConfiguredError }, { status: 503 })
 
-  return NextResponse.json({ error: 'Not implemented' }, { status: 501 })
+  const [members, commodities, regions] = await Promise.all([
+    supabase.from('members').select('id, name, region_id').order('name'),
+    supabase.from('commodities').select('id, name, unit').order('name'),
+    supabase.from('regions').select('id, name').order('name'),
+  ])
+
+  const firstError = members.error || commodities.error || regions.error
+  if (firstError)
+    return NextResponse.json({ error: firstError.message }, { status: 500 })
+
+  return NextResponse.json({
+    members: members.data,
+    commodities: commodities.data,
+    regions: regions.data,
+  })
 }

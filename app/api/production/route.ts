@@ -3,18 +3,25 @@ import { supabase, isSupabaseConfigured, notConfiguredError } from '@/lib/supaba
 
 export const dynamic = 'force-dynamic'
 
-// SKELETON — GET /api/production -> daftar entri produksi + nama anggota & komoditas
-// TODO: query production_entries dengan join members/commodities, order by created_at desc.
+// GET /api/production -> daftar entri produksi + nama anggota & komoditas
 export async function GET() {
   if (!isSupabaseConfigured)
     return NextResponse.json({ error: notConfiguredError }, { status: 503 })
 
-  return NextResponse.json({ error: 'Not implemented' }, { status: 501 })
+  const { data, error } = await supabase
+    .from('production_entries')
+    .select(
+      'id, estimated_volume, status, planting_date, estimated_harvest_date, created_at, members(name), commodities(name, unit)'
+    )
+    .order('created_at', { ascending: false })
+    .limit(50)
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json({ data })
 }
 
-// SKELETON — POST /api/production -> tambah entri produksi baru
+// POST /api/production -> tambah entri produksi baru
 // body: { member_id, commodity_id, estimated_volume, planting_date?, estimated_harvest_date?, status? }
-// TODO: validasi input, insert ke production_entries.
 export async function POST(req: NextRequest) {
   if (!isSupabaseConfigured)
     return NextResponse.json({ error: notConfiguredError }, { status: 503 })
@@ -36,5 +43,18 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     )
 
-  return NextResponse.json({ error: 'Not implemented' }, { status: 501 })
+  const { data, error } = await supabase
+    .from('production_entries')
+    .insert({
+      member_id,
+      commodity_id,
+      estimated_volume: volume,
+      planting_date: body.planting_date || null,
+      estimated_harvest_date: body.estimated_harvest_date || null,
+      status: body.status || 'available',
+    })
+    .select()
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json({ data }, { status: 201 })
 }
