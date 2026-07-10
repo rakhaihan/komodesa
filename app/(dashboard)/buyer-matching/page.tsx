@@ -32,7 +32,6 @@ export default function BuyerMatchingPage() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<MatchResponse | null>(null)
 
-  // Prefill sesuai skenario demo: PT Kopi Nusantara minta 1000 kg
   const [buyerName, setBuyerName] = useState('PT Kopi Nusantara')
   const [commodityId, setCommodityId] = useState('')
   const [requestedVolume, setRequestedVolume] = useState('1000')

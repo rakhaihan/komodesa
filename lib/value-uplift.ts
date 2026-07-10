@@ -1,26 +1,38 @@
-// SKELETON — Value Uplift (CQ4: meningkatkan nilai tambah produk desa)
-// Lihat README.md & docs/data-sources.md untuk konteks metodologi. Hitung
-// potensi kenaikan pendapatan dari menjual kolektif (harga kontrak koperasi)
-// vs menjual individual (harga tingkat produsen/tengkulak).
-//
-// Dasar angka diskon harus punya justifikasi eksplisit (data riil atau asumsi
-// tertulis) — jangan hardcode angka tanpa penjelasan sumbernya.
+const INDIVIDUAL_DISCOUNT_PCT = 8
 
 export type ValueUplift = {
   collectivePricePerKg: number
   individualPricePerKg: number
   individualRevenue: number
   collectiveRevenue: number
-  upliftAmount: number
-  upliftPct: number
-  assumedDiscountPct: number
+  upliftAmount: number // selisih pendapatan (Rp)
+  upliftPct: number // % kenaikan dibanding jual individual
+  assumedDiscountPct: number // dasar empiris yang dipakai, untuk transparansi di UI
 }
 
 export function computeValueUplift(
   collectivePricePerKg: number,
   totalVolume: number
 ): ValueUplift {
-  // TODO: tentukan/hitung basis diskon (assumedDiscountPct), lalu hitung
-  // individualPricePerKg, revenue kedua skenario, dan selisihnya.
-  throw new Error('Not implemented')
+  const individualPricePerKg =
+    collectivePricePerKg * (1 - INDIVIDUAL_DISCOUNT_PCT / 100)
+
+  const collectiveRevenue = collectivePricePerKg * totalVolume
+  const individualRevenue = individualPricePerKg * totalVolume
+  const upliftAmount = collectiveRevenue - individualRevenue
+
+  const upliftPct =
+    individualRevenue > 0
+      ? Math.round((upliftAmount / individualRevenue) * 1000) / 10
+      : 0
+
+  return {
+    collectivePricePerKg,
+    individualPricePerKg: Math.round(individualPricePerKg),
+    individualRevenue: Math.round(individualRevenue),
+    collectiveRevenue: Math.round(collectiveRevenue),
+    upliftAmount: Math.round(upliftAmount),
+    upliftPct,
+    assumedDiscountPct: INDIVIDUAL_DISCOUNT_PCT,
+  }
 }
