@@ -54,7 +54,7 @@ async function callGeminiOnce(t: CommodityTrend): Promise<Response> {
       body: JSON.stringify({
         contents: [{ parts: [{ text: buildPrompt(t) }] }],
         generationConfig: {
-          maxOutputTokens: 200,
+          maxOutputTokens: 500,
           temperature: 0.7,
           thinkingConfig: { thinkingBudget: 0 },
         },
