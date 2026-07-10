@@ -7,14 +7,9 @@ solusi inti wajib merupakan pemikiran asli tim**. Dokumen ini menjelaskan secara
 jujur dan terbuka bagian mana yang dibantu AI dan bagian mana yang murni pemikiran
 tim.
 
-> Catatan pengisian: bagian bertanda **[ISI MANUAL: ...]** hanya bisa diisi oleh
-> tim, karena hanya tim yang tahu detail proses ideasi dan pengambilan keputusannya.
-> Isi dengan jujur — keterbukaan tidak mengurangi nilai, tapi penyembunyian bisa
-> berujung diskualifikasi.
-
 ## 1. Ringkasan
 
-- **Nama tim:** [ISI MANUAL: nama tim]
+- **Nama tim:** Raventhon
 - **Tema:** Tema 2 — Optimalisasi Potensi Desa melalui Koperasi
 - **Produk:** Komodesa
 
@@ -42,9 +37,9 @@ menurut TOR):
 
 | Area | Tools AI | Untuk apa |
 |---|---|---|
-| Bantuan coding & debugging | [ISI MANUAL: mis. Claude Code / Cursor / GitHub Copilot] | Menulis boilerplate route/handler, komponen UI, memperbaiki error TypeScript, refactor |
-| Styling & desain UI | [ISI MANUAL: skill/asisten desain yang dipakai] | Membantu pemilihan palet warna, tipografi, tata letak (arah desain tetap keputusan tim) |
-| Riset & perapian dokumentasi | [ISI MANUAL] | Mencari referensi dokumentasi library, merapikan README & komentar |
+| Bantuan coding & debugging |  Claude Code | Membuat skeleton project untuk typescript, komponen UI, memperbaiki error TypeScript, refactor |
+| Styling & desain UI | anthropics/skills --skill frontend-design | Membantu pemilihan palet warna, tipografi, tata letak (arah desain tetap keputusan tim) |
+| Riset & perapian dokumentasi | Claude Chat | Mencari referensi dokumentasi library, merapikan README & komentar |
 
 ## 4. AI sebagai bagian dari produk (fitur), bukan alat bantu ideasi
 
@@ -59,8 +54,7 @@ produk, bukan AI yang menghasilkan gagasan lomba:
 - Fungsinya: mengubah data tren produksi/harga (dari `lib/trend-data.ts`) menjadi
   narasi rekomendasi singkat untuk koperasi.
 
-Provider yang benar-benar dipakai saat submisi/demo: **[ISI MANUAL: sebutkan yang
-mana — mis. Gemini free tier]**.
+Provider yang benar-benar dipakai saat submisi/demo: **Gemini-flash-latest**.
 
 ## 5. Bagian yang TIDAK dibantu AI
 
