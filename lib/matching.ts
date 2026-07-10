@@ -1,9 +1,3 @@
-// SKELETON — Business Matching (CQ3: mempertemukan koperasi dengan buyer/offtaker)
-// Lihat README.md bagian "Urutan pengerjaan" Fase 1 untuk konteks & referensi
-// dokumentasi. Implementasikan rule-based matching: cocokkan buyer_request
-// dengan production_entries yang tersedia pada komoditas yang sama,
-// diprioritaskan berdasarkan wilayah target buyer.
-
 export type ProductionEntry = {
   memberId: string
   memberName: string
@@ -29,8 +23,27 @@ export function matchSupplyToBuyer(
   entries: ProductionEntry[],
   request: BuyerRequest
 ): MatchResult[] {
-  // TODO: filter entries by commodityId, prioritaskan regionId yang sama
-  // dengan targetRegionId, lalu alokasikan volume secara greedy sampai
-  // requestedVolume terpenuhi atau supply habis.
-  throw new Error('Not implemented')
+  const candidates = entries
+    .filter((e) => e.commodityId === request.commodityId)
+    .sort((a, b) => {
+      const aSameRegion = a.regionId === request.targetRegionId ? 0 : 1
+      const bSameRegion = b.regionId === request.targetRegionId ? 0 : 1
+      return aSameRegion - bSameRegion
+    })
+
+  const results: MatchResult[] = []
+  let remaining = request.requestedVolume
+
+  for (const entry of candidates) {
+    if (remaining <= 0) break
+    const taken = Math.min(entry.volume, remaining)
+    results.push({
+      memberId: entry.memberId,
+      memberName: entry.memberName,
+      matchedVolume: taken,
+    })
+    remaining -= taken
+  }
+
+  return results
 }
