@@ -91,7 +91,7 @@ komodesa/
 1. **Masuk ke folder proyek**
 
    ```bash
-   cd "hari H/komodesa"
+   cd "komodesa"
    ```
 
 2. **Install dependensi**
