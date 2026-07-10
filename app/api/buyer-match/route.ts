@@ -5,11 +5,9 @@ import { computeValueUplift } from '@/lib/value-uplift'
 
 export const dynamic = 'force-dynamic'
 
-// SKELETON — POST /api/buyer-match
+// POST /api/buyer-match
 // body: { buyerName, commodityId, requestedVolume, targetRegionId?, targetPrice? }
-// TODO: ambil production_entries yang tersedia -> matchSupplyToBuyer() ->
-// (opsional) computeValueUplift() kalau targetPrice diisi -> simpan
-// buyer_request + matches ke DB (best-effort) -> kembalikan hasil matching.
+// Menjalankan matching engine + menyimpan buyer_request & matches ke DB.
 export async function POST(req: NextRequest) {
   if (!isSupabaseConfigured)
     return NextResponse.json({ error: notConfiguredError }, { status: 503 })
@@ -27,5 +25,72 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     )
 
-  return NextResponse.json({ error: 'Not implemented' }, { status: 501 })
+  const { data: entries, error } = await supabase
+    .from('production_entries')
+    .select('member_id, commodity_id, estimated_volume, members(name, region_id)')
+    .eq('status', 'available')
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  const mapped: ProductionEntry[] = (entries ?? []).map((e: any) => ({
+    memberId: e.member_id,
+    memberName: e.members?.name ?? '',
+    commodityId: e.commodity_id,
+    regionId: e.members?.region_id ?? '',
+    volume: Number(e.estimated_volume),
+  }))
+
+  const matches = matchSupplyToBuyer(mapped, {
+    id: 'preview',
+    commodityId: body.commodityId,
+    requestedVolume,
+    targetRegionId: body.targetRegionId || undefined,
+  })
+
+  const totalMatched = matches.reduce((s, m) => s + m.matchedVolume, 0)
+
+  // CQ4: nilai tambah — kalau buyer menyertakan target harga, hitung potensi
+  // kenaikan pendapatan dari jual kolektif vs individual atas volume yang cocok.
+  const targetPrice = Number(body.targetPrice)
+  const valueUplift =
+    Number.isFinite(targetPrice) && targetPrice > 0 && totalMatched > 0
+      ? computeValueUplift(targetPrice, totalMatched)
+      : null
+
+  // Persist buyer_request + matches (best-effort; matching tetap dikembalikan
+  // walau penyimpanan gagal supaya demo tidak terblokir).
+  let savedRequestId: string | null = null
+  const { data: savedReq, error: saveError } = await supabase
+    .from('buyer_requests')
+    .insert({
+      buyer_name: body.buyerName || 'Buyer',
+      commodity_id: body.commodityId,
+      requested_volume: requestedVolume,
+      target_region_id: body.targetRegionId || null,
+      target_price: body.targetPrice ? Number(body.targetPrice) : null,
+    })
+    .select('id')
+    .single()
+
+  if (!saveError && savedReq) {
+    savedRequestId = savedReq.id
+    if (matches.length > 0) {
+      await supabase.from('matches').insert(
+        matches.map((m) => ({
+          buyer_request_id: savedReq.id,
+          member_id: m.memberId,
+          matched_volume: m.matchedVolume,
+        }))
+      )
+    }
+  }
+
+  return NextResponse.json({
+    matches,
+    totalMatched,
+    requestedVolume,
+    fulfilled: totalMatched >= requestedVolume,
+    valueUplift,
+    savedRequestId,
+  })
 }
