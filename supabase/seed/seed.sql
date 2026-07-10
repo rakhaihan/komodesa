@@ -1,0 +1,7 @@
+-- SKELETON — Seed data demo
+--
+-- TODO: isi data skenario demo tim sendiri (minimal 1 desa/wilayah, beberapa
+-- komoditas, beberapa anggota dengan production_entries, dan 1 buyer_request)
+-- supaya seluruh alur (mapping -> agregasi -> matching -> logistik ->
+-- rekomendasi) bisa didemokan end-to-end. Lihat schema di 0001_init.sql untuk
+-- kolom yang wajib diisi tiap tabel.

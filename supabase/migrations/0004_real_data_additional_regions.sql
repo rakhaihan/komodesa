@@ -1,0 +1,6 @@
+-- SKELETON — Perluasan wilayah data riil (opsional, memperkuat klaim skalabilitas)
+--
+-- TODO (opsional): tambah beberapa wilayah lagi dari database Kemenkop, idealnya
+-- lintas provinsi/pulau, untuk memperkuat argumen skalabilitas nasional. Ikuti
+-- pola migration 0003 (reuse commodity by name via DO block supaya tidak
+-- bergantung urutan migration/seed lain dijalankan).

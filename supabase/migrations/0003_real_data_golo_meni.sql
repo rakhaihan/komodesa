@@ -1,0 +1,10 @@
+-- SKELETON — Data riil (opsional, memperkuat CQ1/CQ2/CQ4 dengan angka nyata)
+--
+-- TOR menyediakan akses ke database resmi Kemenkop untuk hackathon (lihat
+-- docs/data-sources.md untuk cara memperoleh kredensial & tabel yang tersedia:
+-- referensi_wilayah, referensi_komoditas_desa, profil_koperasi, dll).
+--
+-- TODO (opsional): pilih 1+ wilayah dengan komoditas pertanian jelas (satuan
+-- "ton"), tarik nama wilayah & volume komoditas ASLI ke tabel regions/
+-- commodities/production_entries di sini. Dokumentasikan sumber & kejujuran
+-- data (mana yang asli vs ilustratif) di komentar migration ini.

@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f2eee3;
+  --card: #fbfaf4;
+  --soil: #221c13;
+  --ink-muted: #6e6353;
+  --line: #e3dccb;
+}
+
+body {
+  color: var(--soil);
+  background: var(--paper);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display face membawa personalitas — dipakai di judul & angka besar */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  letter-spacing: -0.015em;
+}
+
+/* Angka ledger: figur monospace tabular agar kolom rata & tidak bergeser */
+.tabular {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Eyebrow/label kecil bergaya arsip koperasi */
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+}
+
+/* Aturan "penjumlahan" akuntansi: garis ganda di atas total */
+.sum-rule {
+  border-top: 3px double var(--soil);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

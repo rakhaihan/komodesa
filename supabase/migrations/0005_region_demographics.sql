@@ -1,0 +1,11 @@
+-- SKELETON — Karakteristik desa (opsional, TOR bagian C: "data wilayah &
+-- karakteristik desa")
+--
+-- TODO (opsional): tambah kolom demografi ke tabel regions (mis. population,
+-- village_budget) dan isi dari tabel referensi_profil_desa di database
+-- Kemenkop kalau dipakai. Endpoint app/api/regions/route.ts sudah
+-- mengasumsikan kolom regions.population & regions.village_budget.
+--
+-- alter table regions
+--   add column if not exists population integer,
+--   add column if not exists village_budget numeric;
