@@ -59,27 +59,9 @@ export default function Home() {
 
         <div className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-4 pb-10 pt-6 sm:px-6 md:pb-14 md:pt-8">
           <div className="absolute left-4 right-4 top-6 flex items-center sm:left-6 sm:right-6 md:top-8">
-            {/* Disembunyikan di HP (bukan cuma di-wrap) — di layar sempit dua
-                pil di kanan sudah butuh hampir semua lebar yang ada, jadi
-                label ini cuma bikin kepenuhan/ke-wrap dua baris. Muncul lagi
-                mulai sm: ke atas saat ruang sudah cukup. */}
-            <span className="eyebrow hidden text-paper/60 sm:inline">
+            <span className="eyebrow text-paper/60">
               Koperasi Digital · Kemenkop
             </span>
-            <nav className="ml-auto flex flex-none gap-1.5 text-xs font-medium text-paper sm:gap-2 sm:text-sm">
-              <Link
-                href="/dashboard"
-                className="whitespace-nowrap rounded-full border border-paper/20 bg-paper/10 px-3 py-1.5 backdrop-blur-sm transition-colors duration-200 hover:border-paper/40 hover:bg-paper/20 sm:px-4"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/produksi"
-                className="whitespace-nowrap rounded-full border border-paper/20 bg-paper/10 px-3 py-1.5 backdrop-blur-sm transition-colors duration-200 hover:border-paper/40 hover:bg-paper/20 sm:px-4"
-              >
-                Input produksi
-              </Link>
-            </nav>
           </div>
 
           <div className="relative mt-1">
