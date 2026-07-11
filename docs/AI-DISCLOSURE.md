@@ -26,9 +26,7 @@ dihasilkan langsung oleh AI:
   → rekomendasi) dan alasan kenapa ini beda dari marketplace konvensional.
 - Narasi problem statement dan positioning solusi.
 
-**[ISI MANUAL:** ceritakan singkat bagaimana ide ini muncul di tim — dari observasi
-apa, diskusi kapan, kontribusi tiap anggota dalam ideasi. Ini penting untuk sesi
-*live defense* di hadapan juri.**]**
+Berawal dari brainstorming dari keempat tema yang disediakan, kita memulai diskusi dan bedah sedikit tentang 4 tema yang disajikan dan menyampaikan pendapat masing-masing dari keempat tema tersebut dan juga memberikan ide project dari keempat tema yang disajikan serta kekurangan dan kelebihan dari project tersebut. Setelah itu masing-masing dari kita memberikan rekomendasi tema apa yang sekiranya paling cocok dan bisa dieksekusi oleh kita. Lalu kita berdiskusi selama 2 hari dan pada akhirnya sepakat untuk memilih Pilar 3 tentang Pemanfaatan Potensi Ekonomi Desa karena paling relevan dengan tujuan Simkopdes, dampak ekonomi dapat diukur, bisa dimodifikasi dengan bantuan AI supaya pengembangannya lebih terstruktur dan up-to-date, dan yang terakhir adalah mudah untuk mendapatkan data dummy. 
 
 ## 3. Penggunaan AI sebagai alat bantu teknis
 
@@ -56,17 +54,11 @@ produk, bukan AI yang menghasilkan gagasan lomba:
 
 Provider yang benar-benar dipakai saat submisi/demo: **Gemini-flash-latest**.
 
-## 5. Bagian yang TIDAK dibantu AI
-
-**[ISI MANUAL:** sebutkan bagian yang murni dikerjakan manual tim tanpa AI, mis.
-keputusan skema database, logika bisnis matching/logistics, penyusunan pitch,
-pengumpulan data, dsb. Semakin spesifik semakin kuat saat live defense.**]**
-
-## 6. Pernyataan
+## 5. Pernyataan
 
 Tim menyatakan bahwa gagasan dan solusi inti Komodesa merupakan hasil pemikiran
 tim, dan penggunaan AI terbatas pada alat bantu teknis serta fitur produk
 sebagaimana diuraikan di atas. Tim siap mempertanggungjawabkan orisinalitas karya
 dalam sesi presentasi, tanya jawab, dan pembelaan gagasan (*live defense*).
 
-**[ISI MANUAL: nama & tanda tangan/persetujuan ketua tim, tanggal]**
+![Tanda_tangan_persetujuan](tanda_tangan_persetujuan.png)
