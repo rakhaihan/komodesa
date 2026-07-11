@@ -1,0 +1,64 @@
+# Pengungkapan Penggunaan AI (AI Disclosure)
+
+Dokumen ini disusun untuk memenuhi ketentuan penggunaan AI/IP pada TOR Hackathon
+Digital Cooperatives Expo 2026 (Kemenkop). Sesuai ketentuan tersebut, penggunaan
+AI generatif sebagai **alat bantu teknis diperbolehkan**, sementara **gagasan dan
+solusi inti wajib merupakan pemikiran asli tim**. Dokumen ini menjelaskan secara
+jujur dan terbuka bagian mana yang dibantu AI dan bagian mana yang murni pemikiran
+tim.
+
+## 1. Ringkasan
+
+- **Nama tim:** Raventhon
+- **Tema:** Tema 2 — Optimalisasi Potensi Desa melalui Koperasi
+- **Produk:** Komodesa
+
+## 2. Gagasan inti — pemikiran asli tim
+
+Bagian berikut adalah hasil ideasi, analisis masalah, dan keputusan tim, **bukan**
+dihasilkan langsung oleh AI:
+
+- Konsep dasar "gotong royong berbasis data" / metafora **buku besar desa** — panen
+  kecil-kecil anggota dijumlahkan koperasi jadi satu kekuatan tawar.
+- Pemilihan masalah yang diangkat: pasokan desa tercerai-berai, posisi tawar rendah,
+  biaya logistik tinggi, potensi belum teridentifikasi.
+- Keputusan lingkup fitur (mapping → agregasi → business matching → logistics pooling
+  → rekomendasi) dan alasan kenapa ini beda dari marketplace konvensional.
+- Narasi problem statement dan positioning solusi.
+
+Berawal dari brainstorming dari keempat tema yang disediakan, kita memulai diskusi dan bedah sedikit tentang 4 tema yang disajikan dan menyampaikan pendapat masing-masing dari keempat tema tersebut dan juga memberikan ide project dari keempat tema yang disajikan serta kekurangan dan kelebihan dari project tersebut. Setelah itu masing-masing dari kita memberikan rekomendasi tema apa yang sekiranya paling cocok dan bisa dieksekusi oleh kita. Lalu kita berdiskusi selama 2 hari dan pada akhirnya sepakat untuk memilih Pilar 3 tentang Pemanfaatan Potensi Ekonomi Desa karena paling relevan dengan tujuan Simkopdes, dampak ekonomi dapat diukur, bisa dimodifikasi dengan bantuan AI supaya pengembangannya lebih terstruktur dan up-to-date, dan yang terakhir adalah mudah untuk mendapatkan data dummy. 
+
+## 3. Penggunaan AI sebagai alat bantu teknis
+
+AI generatif digunakan sebagai alat bantu pada bagian-bagian berikut (diizinkan
+menurut TOR):
+
+| Area | Tools AI | Untuk apa |
+|---|---|---|
+| Bantuan coding & debugging |  Claude Code | Membuat skeleton project untuk typescript, komponen UI, memperbaiki error TypeScript, refactor |
+| Styling & desain UI | anthropics/skills --skill frontend-design | Membantu pemilihan palet warna, tipografi, tata letak (arah desain tetap keputusan tim) |
+| Riset & perapian dokumentasi | Claude Chat | Mencari referensi dokumentasi library, merapikan README & komentar |
+
+## 4. AI sebagai bagian dari produk (fitur), bukan alat bantu ideasi
+
+Komodesa memakai API AI sebagai **fitur produk** pada halaman Rekomendasi Komoditas
+(`lib/ai.ts`, `app/api/ai-recommendation/route.ts`). Ini adalah komponen teknis
+produk, bukan AI yang menghasilkan gagasan lomba:
+
+- Mendukung 3 provider dengan prioritas: **Google Gemini** → **OpenAI** → **Anthropic
+  Claude**.
+- Bila tidak ada API key / provider gagal, sistem otomatis memakai **narasi template
+  deterministik** (fallback), jadi fitur tetap berjalan tanpa AI eksternal.
+- Fungsinya: mengubah data tren produksi/harga (dari `lib/trend-data.ts`) menjadi
+  narasi rekomendasi singkat untuk koperasi.
+
+Provider yang benar-benar dipakai saat submisi/demo: **Gemini-flash-latest**.
+
+## 5. Pernyataan
+
+Tim menyatakan bahwa gagasan dan solusi inti Komodesa merupakan hasil pemikiran
+tim, dan penggunaan AI terbatas pada alat bantu teknis serta fitur produk
+sebagaimana diuraikan di atas. Tim siap mempertanggungjawabkan orisinalitas karya
+dalam sesi presentasi, tanya jawab, dan pembelaan gagasan (*live defense*).
+
+![Tanda_tangan_persetujuan](tanda_tangan_persetujuan.png)

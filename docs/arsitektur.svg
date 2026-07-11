@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1460" viewBox="0 0 1080 1460" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3a3a3a"/>
+    </marker>
+  </defs>
+
+  <rect width="1080" height="1460" fill="#f2f2f2"/>
+
+  <!-- Legend -->
+  <rect x="745" y="30"  width="24" height="24" rx="5" fill="#c9c6f5" stroke="#3a3a3a" stroke-width="1.5"/>
+  <text x="779" y="48"  font-size="19" fill="#222">Service (Vercel)</text>
+  <rect x="745" y="78"  width="24" height="24" rx="5" fill="#a0e6b4" stroke="#3a3a3a" stroke-width="1.5"/>
+  <text x="779" y="96"  font-size="19" fill="#222">Data (Supabase)</text>
+  <rect x="745" y="126" width="24" height="24" rx="5" fill="#f6b4b4" stroke="#3a3a3a" stroke-width="1.5"/>
+  <text x="779" y="144" font-size="19" fill="#222">API (Third-Party)</text>
+
+  <!-- Client -->
+  <rect x="373" y="103" width="330" height="100" rx="14" fill="#ffffff" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="538" y="148" font-size="22" font-weight="700" fill="#111" text-anchor="middle">Client (Browser)</text>
+  <text x="538" y="180" font-size="19" fill="#333" text-anchor="middle">komoditas x 12 bulan</text>
+
+  <!-- Client -> Vercel -->
+  <path d="M538,203 L538,318" fill="none" stroke="#3a3a3a" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+  <!-- Vercel container -->
+  <rect x="100" y="322" width="880" height="505" rx="16" fill="none" stroke="#2b2b2b" stroke-width="2.2" stroke-dasharray="9 7"/>
+  <text x="132" y="382" font-size="26" font-weight="700" fill="#111">Vercel - next.js App</text>
+
+  <!-- Frontend Pages -->
+  <rect x="372" y="438" width="332" height="98" rx="14" fill="#c9c6f5" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="538" y="482" font-size="21" font-weight="700" fill="#111" text-anchor="middle">Frontend Pages</text>
+  <text x="538" y="512" font-size="18" fill="#222" text-anchor="middle">app/(dashboard), landing</text>
+
+  <!-- fetch() -->
+  <path d="M538,536 L538,626" fill="none" stroke="#3a3a3a" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <text x="558" y="588" font-size="19" fill="#333">fetch()</text>
+
+  <!-- API Routes -->
+  <rect x="372" y="628" width="332" height="98" rx="14" fill="#c9c6f5" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="538" y="672" font-size="21" font-weight="700" fill="#111" text-anchor="middle">API Routes</text>
+  <text x="538" y="702" font-size="18" fill="#222" text-anchor="middle">app/api/* +lib/*</text>
+
+  <!-- API Routes -> Supabase / Provider AI -->
+  <path d="M470,726 L235,895" fill="none" stroke="#3a3a3a" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <path d="M606,726 L800,895" fill="none" stroke="#3a3a3a" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+  <!-- Supabase Cloud container -->
+  <rect x="28" y="900" width="408" height="208" rx="16" fill="none" stroke="#2b2b2b" stroke-width="2.2" stroke-dasharray="9 7"/>
+  <text x="46" y="948" font-size="25" font-weight="700" fill="#111">Supabase Cloud</text>
+  <rect x="55" y="962" width="352" height="92" rx="14" fill="#a0e6b4" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="231" y="1000" font-size="21" font-weight="700" fill="#111" text-anchor="middle">postgres</text>
+  <text x="231" y="1028" font-size="18" fill="#222" text-anchor="middle">8 tabel + 2 view</text>
+
+  <!-- Provider AI container -->
+  <rect x="520" y="900" width="545" height="208" rx="16" fill="none" stroke="#2b2b2b" stroke-width="2.2" stroke-dasharray="9 7"/>
+  <text x="540" y="936" font-size="22" font-weight="700" fill="#111">Provider AI</text>
+  <rect x="568" y="952" width="130" height="80" rx="14" fill="#f6b4b4" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="633" y="998" font-size="20" font-weight="700" fill="#111" text-anchor="middle">Gemini</text>
+  <rect x="735" y="952" width="130" height="80" rx="14" fill="#f6b4b4" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="800" y="998" font-size="20" font-weight="700" fill="#111" text-anchor="middle">OpenAI</text>
+  <rect x="902" y="952" width="130" height="80" rx="14" fill="#f6b4b4" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="967" y="998" font-size="20" font-weight="700" fill="#111" text-anchor="middle">Claude</text>
+  <text x="792" y="1078" font-size="17" fill="#666" text-anchor="middle">jika gagal semua, panggil template offline</text>
+
+  <!-- Supabase -> DB Kemenkop (one-time migration) -->
+  <path d="M232,1108 L432,1300" fill="none" stroke="#3a3a3a" stroke-width="2" stroke-dasharray="8 7"/>
+
+  <!-- DB Kemenkop -->
+  <rect x="300" y="1300" width="412" height="100" rx="14" fill="#ffffff" stroke="#2b2b2b" stroke-width="2"/>
+  <text x="506" y="1345" font-size="22" font-weight="700" fill="#111" text-anchor="middle">DB Kemenkop</text>
+  <text x="506" y="1377" font-size="19" fill="#333" text-anchor="middle">one-time migration, bukan live</text>
+</svg>
