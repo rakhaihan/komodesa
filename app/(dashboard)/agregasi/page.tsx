@@ -5,6 +5,7 @@ import Card from '@/components/ui/Card'
 import StatCard from '@/components/dashboard/StatCard'
 import Skeleton from '@/components/ui/Skeleton'
 import EmptyState from '@/components/ui/EmptyState'
+import { Table, THead, Th, TBody, Tr, Td } from '@/components/ui/Table'
 import SupplyChart, { SupplyDatum } from '@/components/dashboard/SupplyChart'
 import { api } from '@/lib/api'
 import { formatNumber } from '@/lib/format'
@@ -102,33 +103,24 @@ export default function AgregasiPage() {
                 ))}
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b text-left text-soil-muted">
-                      <th className="py-2 pr-3 font-medium">Komoditas</th>
-                      <th className="py-2 pr-3 font-medium">Wilayah</th>
-                      <th className="py-2 pr-3 font-medium">Volume</th>
-                      <th className="py-2 font-medium">Anggota</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {rows.map((r) => (
-                      <tr
-                        key={`${r.commodity_id}-${r.region_id}`}
-                        className="border-b last:border-0"
-                      >
-                        <td className="py-2 pr-3">{r.commodity_name}</td>
-                        <td className="py-2 pr-3">{r.region_name}</td>
-                        <td className="tabular py-2 pr-3">
-                          {formatNumber(Number(r.total_volume))} kg
-                        </td>
-                        <td className="tabular py-2">{r.member_count} orang</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <Table>
+                <THead>
+                  <Th>Komoditas</Th>
+                  <Th>Wilayah</Th>
+                  <Th>Volume</Th>
+                  <Th>Anggota</Th>
+                </THead>
+                <TBody>
+                  {rows.map((r) => (
+                    <Tr key={`${r.commodity_id}-${r.region_id}`}>
+                      <Td>{r.commodity_name}</Td>
+                      <Td>{r.region_name}</Td>
+                      <Td className="tabular">{formatNumber(Number(r.total_volume))} kg</Td>
+                      <Td className="tabular">{r.member_count} orang</Td>
+                    </Tr>
+                  ))}
+                </TBody>
+              </Table>
             )}
           </Card>
         </div>

@@ -113,6 +113,53 @@ export default function LogistikPage() {
             </div>
           )}
 
+          {pool && (
+            <div className="mt-6">
+              <Card title="Perbandingan biaya kirim">
+                {(() => {
+                  const max = Math.max(
+                    pool.estimatedIndividualCost,
+                    pool.estimatedPooledCost
+                  )
+                  const individualPct = (pool.estimatedIndividualCost / max) * 100
+                  const pooledPct = (pool.estimatedPooledCost / max) * 100
+                  return (
+                    <div className="space-y-3">
+                      <div>
+                        <div className="mb-1 flex justify-between text-xs text-soil-muted">
+                          <span>Kirim sendiri-sendiri</span>
+                          <span className="tabular font-medium text-husk">
+                            {formatIDR(pool.estimatedIndividualCost)}
+                          </span>
+                        </div>
+                        <div className="h-3 rounded-full bg-line">
+                          <div
+                            className="h-3 rounded-full bg-husk"
+                            style={{ width: `${individualPct}%` }}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="mb-1 flex justify-between text-xs text-soil-muted">
+                          <span>Kirim gabungan (pooling)</span>
+                          <span className="tabular font-medium text-brand">
+                            {formatIDR(pool.estimatedPooledCost)}
+                          </span>
+                        </div>
+                        <div className="h-3 rounded-full bg-line">
+                          <div
+                            className="h-3 rounded-full bg-brand"
+                            style={{ width: `${pooledPct}%` }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })()}
+              </Card>
+            </div>
+          )}
+
           <div className="mt-6">
             <Card title="Anggota dalam pengiriman gabungan">
               <ul className="divide-y text-sm">

@@ -78,6 +78,11 @@ export default function BuyerMatchingPage() {
     ? Math.min(100, Math.round((result.totalMatched / result.requestedVolume) * 100))
     : 0
 
+  // Warna bar mengikuti urgensi, bukan biner terpenuhi/tidak: makin jauh dari
+  // target makin ke arah terracota (perlu tindakan), bukan cuma hijau/emas.
+  const progressColor = pct >= 100 ? 'bg-brand' : pct >= 50 ? 'bg-grain' : 'bg-husk'
+  const progressTextColor = pct >= 100 ? 'text-brand' : pct >= 50 ? 'text-grain-deep' : 'text-husk'
+
   return (
     <main>
       <h1 className="text-2xl font-semibold text-brand">Buyer Matching</h1>
@@ -160,17 +165,13 @@ export default function BuyerMatchingPage() {
                     Terpenuhi {formatNumber(result.totalMatched)} /{' '}
                     {formatNumber(result.requestedVolume)} kg
                   </span>
-                  <span
-                    className={
-                      result.fulfilled ? 'text-brand' : 'text-grain-deep'
-                    }
-                  >
+                  <span className={progressTextColor}>
                     {result.fulfilled ? 'Terpenuhi penuh' : `${pct}%`}
                   </span>
                 </div>
                 <div className="mt-1 h-2 rounded-full bg-line">
                   <div
-                    className="h-2 rounded-full bg-brand"
+                    className={`h-2 rounded-full transition-all duration-200 ${progressColor}`}
                     style={{ width: `${pct}%` }}
                   />
                 </div>

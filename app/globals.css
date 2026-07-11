@@ -46,6 +46,37 @@ h4 {
   border-top: 3px double var(--soil);
 }
 
+/* Tekstur hero — hijau tua pekat (bukan krem seperti sisa halaman), supaya
+ * hero jadi pernyataan warna yang jelas beda, sementara section di bawahnya
+ * tetap satu keluarga krem dengan variasi tint tipis antar-section. Garis
+ * lipatan tipis dari versi kertas dipertahankan, cuma direcolor untuk latar
+ * gelap. Statis (tidak dianimasikan) supaya ringan di perangkat kelas bawah —
+ * lihat components/ui/Reveal.tsx untuk animasi scroll yang murah. */
+.hero-texture {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      transparent 0px,
+      transparent 120px,
+      rgba(0, 0, 0, 0.12) 121px,
+      rgba(255, 255, 255, 0.05) 122px,
+      transparent 124px,
+      transparent 260px
+    ),
+    repeating-linear-gradient(
+      35deg,
+      transparent 0px,
+      transparent 180px,
+      rgba(0, 0, 0, 0.1) 181px,
+      rgba(255, 255, 255, 0.04) 182px,
+      transparent 184px,
+      transparent 320px
+    ),
+    #1b2f1a;
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.3);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -5,6 +5,7 @@ import Card from '@/components/ui/Card'
 import StatCard from '@/components/dashboard/StatCard'
 import Skeleton from '@/components/ui/Skeleton'
 import EmptyState from '@/components/ui/EmptyState'
+import { Table, THead, Th, TBody, Tr, Td } from '@/components/ui/Table'
 import { api } from '@/lib/api'
 import { formatIDR, formatNumber } from '@/lib/format'
 
@@ -109,39 +110,32 @@ export default function PotensiPage() {
                 ))}
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-line text-left text-soil-muted">
-                      <th className="py-2 pr-3 font-medium">Komoditas</th>
-                      <th className="py-2 pr-3 font-medium">Wilayah</th>
-                      <th className="py-2 pr-3 font-medium">Tersedia</th>
-                      <th className="py-2 pr-3 font-medium">Terserap</th>
-                      <th className="py-2 font-medium">Belum tergarap</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {rows.map((r) => (
-                      <tr
-                        key={`${r.commodity_id}-${r.region_id}`}
-                        className="border-b border-line last:border-0"
-                      >
-                        <td className="py-2 pr-3">{r.commodity_name}</td>
-                        <td className="py-2 pr-3">{r.region_name}</td>
-                        <td className="tabular py-2 pr-3 text-soil-muted">
-                          {formatNumber(Number(r.supplied_volume))} kg
-                        </td>
-                        <td className="tabular py-2 pr-3 text-soil-muted">
-                          {formatNumber(Number(r.matched_volume))} kg
-                        </td>
-                        <td className="tabular py-2 font-medium text-grain-deep">
-                          {formatNumber(Number(r.unclaimed_volume))} kg
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <Table>
+                <THead>
+                  <Th>Komoditas</Th>
+                  <Th>Wilayah</Th>
+                  <Th>Tersedia</Th>
+                  <Th>Terserap</Th>
+                  <Th>Belum tergarap</Th>
+                </THead>
+                <TBody>
+                  {rows.map((r) => (
+                    <Tr key={`${r.commodity_id}-${r.region_id}`}>
+                      <Td>{r.commodity_name}</Td>
+                      <Td>{r.region_name}</Td>
+                      <Td className="tabular text-soil-muted">
+                        {formatNumber(Number(r.supplied_volume))} kg
+                      </Td>
+                      <Td className="tabular text-soil-muted">
+                        {formatNumber(Number(r.matched_volume))} kg
+                      </Td>
+                      <Td className="tabular font-medium text-grain-deep">
+                        {formatNumber(Number(r.unclaimed_volume))} kg
+                      </Td>
+                    </Tr>
+                  ))}
+                </TBody>
+              </Table>
             )}
           </Card>
         )}
@@ -155,32 +149,26 @@ export default function PotensiPage() {
               besar penduduk & anggaran, makin besar dampak bila potensi di atas
               berhasil digarap.
             </p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-line text-left text-soil-muted">
-                    <th className="py-2 pr-3 font-medium">Wilayah</th>
-                    <th className="py-2 pr-3 font-medium">Penduduk</th>
-                    <th className="py-2 font-medium">Anggaran dana desa</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {regions.map((r) => (
-                    <tr key={r.id} className="border-b border-line last:border-0">
-                      <td className="py-2 pr-3">{r.name}</td>
-                      <td className="tabular py-2 pr-3">
-                        {r.population != null ? formatNumber(r.population) : '—'}
-                      </td>
-                      <td className="tabular py-2">
-                        {r.village_budget != null
-                          ? formatIDR(Number(r.village_budget))
-                          : '—'}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <Table>
+              <THead>
+                <Th>Wilayah</Th>
+                <Th>Penduduk</Th>
+                <Th>Anggaran dana desa</Th>
+              </THead>
+              <TBody>
+                {regions.map((r) => (
+                  <Tr key={r.id}>
+                    <Td>{r.name}</Td>
+                    <Td className="tabular">
+                      {r.population != null ? formatNumber(r.population) : '—'}
+                    </Td>
+                    <Td className="tabular">
+                      {r.village_budget != null ? formatIDR(Number(r.village_budget)) : '—'}
+                    </Td>
+                  </Tr>
+                ))}
+              </TBody>
+            </Table>
           </Card>
         </div>
       )}

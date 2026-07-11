@@ -5,8 +5,19 @@ import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
+import Badge, { BadgeTone } from '@/components/ui/Badge'
+import { Table, THead, Th, TBody, Tr, Td } from '@/components/ui/Table'
 import { api } from '@/lib/api'
 import { formatNumber } from '@/lib/format'
+
+// Status disimpan bebas (kolom text, lihat supabase/migrations/0001_init.sql)
+// tapi konvensi aplikasinya cuma 3 nilai ini. Dipetakan ke label + tone Badge
+// supaya warnanya benar-benar mencerminkan tahapannya, bukan selalu hijau.
+const statusMeta: Record<string, { label: string; tone: BadgeTone }> = {
+  planned: { label: 'Direncanakan', tone: 'default' },
+  available: { label: 'Tersedia', tone: 'accent' },
+  harvested: { label: 'Dipanen', tone: 'success' },
+}
 
 type Meta = {
   members: { id: string; name: string }[]
@@ -155,35 +166,31 @@ export default function ProduksiPage() {
           {entries.length === 0 ? (
             <p className="text-sm text-soil-muted">Belum ada data.</p>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b text-left text-soil-muted">
-                    <th className="py-2 pr-3 font-medium">Anggota</th>
-                    <th className="py-2 pr-3 font-medium">Komoditas</th>
-                    <th className="py-2 pr-3 font-medium">Volume</th>
-                    <th className="py-2 font-medium">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {entries.map((e) => (
-                    <tr key={e.id} className="border-b last:border-0">
-                      <td className="py-2 pr-3">{e.members?.name ?? '—'}</td>
-                      <td className="py-2 pr-3">{e.commodities?.name ?? '—'}</td>
-                      <td className="py-2 pr-3">
-                        {formatNumber(e.estimated_volume)}{' '}
-                        {e.commodities?.unit ?? ''}
-                      </td>
-                      <td className="py-2">
-                        <span className="rounded-full bg-brand/10 px-2 py-0.5 text-xs font-medium text-brand">
-                          {e.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <Table>
+              <THead>
+                <Th>Anggota</Th>
+                <Th>Komoditas</Th>
+                <Th>Volume</Th>
+                <Th>Status</Th>
+              </THead>
+              <TBody>
+                {entries.map((e) => {
+                  const meta = statusMeta[e.status] ?? { label: e.status, tone: 'default' as BadgeTone }
+                  return (
+                    <Tr key={e.id}>
+                      <Td>{e.members?.name ?? '—'}</Td>
+                      <Td>{e.commodities?.name ?? '—'}</Td>
+                      <Td className="tabular">
+                        {formatNumber(e.estimated_volume)} {e.commodities?.unit ?? ''}
+                      </Td>
+                      <Td>
+                        <Badge tone={meta.tone}>{meta.label}</Badge>
+                      </Td>
+                    </Tr>
+                  )
+                })}
+              </TBody>
+            </Table>
           )}
         </Card>
       </div>

@@ -6,6 +6,7 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Skeleton from '@/components/ui/Skeleton'
 import EmptyState from '@/components/ui/EmptyState'
+import Badge from '@/components/ui/Badge'
 import { api } from '@/lib/api'
 
 type Recommendation = {
@@ -26,13 +27,9 @@ const sourceLabel: Record<Recommendation['source'], string> = {
 function TrendBadge({ label, pct }: { label: string; pct: number }) {
   const up = pct >= 0
   return (
-    <span
-      className={`tabular rounded-full px-2 py-0.5 text-xs font-medium ${
-        up ? 'bg-brand/10 text-brand' : 'bg-husk/10 text-husk'
-      }`}
-    >
+    <Badge tone={up ? 'success' : 'danger'} className="tabular">
       {label} {up ? '▲' : '▼'} {Math.abs(pct)}%
-    </span>
+    </Badge>
   )
 }
 
@@ -133,9 +130,7 @@ export default function RekomendasiPage() {
             <Card key={r.commodityName}>
               <div className="flex items-start justify-between gap-2">
                 <h2 className="font-medium text-brand-dark">{r.commodityName}</h2>
-                <span className="text-[10px] uppercase tracking-wide text-soil-muted">
-                  {sourceLabel[r.source]}
-                </span>
+                <span className="eyebrow text-soil-muted">{sourceLabel[r.source]}</span>
               </div>
               <div className="mt-2 flex gap-2">
                 <TrendBadge label="Produksi" pct={r.volumeChangePct} />
