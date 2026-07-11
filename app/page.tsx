@@ -260,6 +260,29 @@ export default function Home() {
             </div>
           </section>
         </Reveal>
+
+        <Reveal className="mt-16">
+          {/* Penutup — band gelap sama seperti hero, jadi halaman "menutup
+              lingkaran" secara visual. CTA tunggal, tidak dipecah dua tombol
+              seperti hero, supaya fokus mengarahkan ke satu aksi berikutnya. */}
+          <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden rounded-3xl bg-brand-dark px-6 py-14 text-center sm:px-10 md:py-20">
+            <h2 className="mx-auto mt-3 max-w-lg font-display text-3xl font-bold leading-tight text-paper sm:text-4xl">
+              Komodesa, one step higher.
+            </h2>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-paper/70">
+              Dari panen individu menuju pasokan kolektif yang dilirik pembeli
+              besar.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <Link
+                href="/dashboard"
+                className="rounded-full bg-paper px-6 py-3 text-sm font-medium text-brand-dark transition-all duration-200 hover:bg-card active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-grain focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark"
+              >
+                Mulai satu langkah lebih tinggi
+              </Link>
+            </div>
+          </section>
+        </Reveal>
       </div>
     </main>
   )
