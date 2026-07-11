@@ -166,7 +166,7 @@ sesuai ketentuan TOR Hackathon.
 
 ---
 
-## Tim — Raventhon Institute
+## Tim — Raventhon
 
 <table>
   <tr>
@@ -177,7 +177,7 @@ sesuai ketentuan TOR Hackathon.
   <tr>
     <td>Rakha Raihanurrahman</td>
     <td> Tech Lead ·  AI Engineer &amp; QA Tester</td>
-    <td>Arsitektur teknis &amp; koordinasi tim, integrasi provider AI, narasi rekomendasi, pengujian &amp; jaminan kualitas end-to-end</td>
+    <td>Arsitektur teknis &amp; integrasi provider AI, narasi rekomendasi, pengujian &amp; jaminan kualitas end-to-end</td>
   </tr>
   <tr>
     <td>Rafael Ganadi R.</td>

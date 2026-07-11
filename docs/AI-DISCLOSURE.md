@@ -61,4 +61,4 @@ tim, dan penggunaan AI terbatas pada alat bantu teknis serta fitur produk
 sebagaimana diuraikan di atas. Tim siap mempertanggungjawabkan orisinalitas karya
 dalam sesi presentasi, tanya jawab, dan pembelaan gagasan (*live defense*).
 
-**[ISI MANUAL: nama & tanda tangan/persetujuan ketua tim, tanggal]**
+![Tanda_tangan_persetujuan](tanda_tangan_persetujuan.png)
